@@ -83,7 +83,7 @@ def prepare_wordlists(path):
     global WORD_LISTS
     lines = []
     print("Loading words from %s" % (path,))
-    if exists(WORDLIST_PATH):
+    if exists(path):
         lines = [line.rstrip() for line in open(path)]
     else:
         print("ERR: wordlist not found!")
@@ -116,12 +116,12 @@ def scan_host(host, port, wordlist, process_id=None, path=""):
         else:
             print("Scanning %s:%s/%s%s             \r" % (host, port, path, word), end="")
 
-def start_scan(url):
+def start_scan(url, wordlist_path):
     print("Starting scan on %s.." % (url,))
     host, port, path = parse_url(URL)
-    prepare_wordlists(WORDLIST_PATH)
+    prepare_wordlists(wordlist_path)
     procs = []
-    for n, wordlist in enumerate(WORD_LISTS):
+    for n, wordlist in enumerate(wordlist_path):
         procs.append(Process(target=scan_host, args=(host, port, wordlist, n+1, path)))
     for p in procs:
         p.start()
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     WORDLIST_PATH=a.wordlist
     print("Starting Dr.buster..\nURL: %s \nWORDLIST: %s" % (URL, WORDLIST_PATH))
     start_time = time()
-    start_scan(URL)
+    start_scan(URL, WORDLIST_PATH)
     end_time = time()
     print()
     print("\nScanned %s paths in %s s." % (len(list(itertools.chain.from_iterable(WORD_LISTS))), end_time-start_time))
