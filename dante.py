@@ -1,6 +1,6 @@
 import sys, argparse, nmap
-from dr_buster import start_scan 
-from exploit_db_wrapper import search
+from lib.dr_buster import start_scan 
+from lib.exploit_db_wrapper import search
 
 
 EXPLOITS_FOR_REPORT = []
