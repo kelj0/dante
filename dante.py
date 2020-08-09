@@ -1,4 +1,4 @@
-import sys, argparse
+import sys, argparse, nmap
 from dr_buster import start_scan 
 from exploit_db_wrapper import search
 
@@ -6,9 +6,11 @@ from exploit_db_wrapper import search
 EXPLOITS_FOR_REPORT = []
 
 def parse_ip(ip):
-    pass
+    return ip
 
-def check_for_exploits(daemon):
+def check_for_exploits(daemon, version):
+    if version=="unknown":
+        return None
     e = search(daemon)
     if e:
         return e
@@ -19,15 +21,32 @@ def generate_report():
     pass
 
 def start_scan(ip):
+    global EXPLOITS_FOR_REPORT
     dr_buster_started = False
-    for p in nmap.scanports():
-        if p.open():
-            exploits = check_for_exploits(p.info())
+    nm = nmap.PortScanner()
+    print("Starting nmap")
+    scan = None
+    if input("Most common ports scan? [y/n]") in ['y','Y']:
+        print("Ok scanning most common ports only")
+        scan = nm.scan(hosts=ip, arguments="-T4 -sV --version-intensity=1")
+    else:
+        print("Ok scanning all ports, this will take some time..")
+        scan = nm.scan(hosts=ip, arguments="-T4 -sV --version-intensity=1 -p-")
+    
+    result = scan['scan'][ip]['tcp']
+    print(result)
+    print("Done with scan, scanned totally %s ports" % (len(result),))
+    for p in result:
+        if result[p]['state'] == 'open' and result[p][product] != '':
+            port = result[p]
+            daemon = port['product']
+            version = port['version'] if port['version'] not "" else "unknown"
+            print("Port %s is open and its running %s version %s" % (p, daemon, version))
+            exploits = check_for_exploits(daemon, version)
             if exploits:
-                EXPLOITS_FOR_REPORT.append({p.info():exploits}
-        if p.open() and ((p.number==80 or p.number==443) and not dr_buster_started):
-            dr_buster_started = True
-            new_thread(start_scan("https://"+ip, wordlist_path))
+                EXPLOITS_FOR_REPORT.append({daemon:exploits})
+            else:
+                print("Didnt find any exploits for %" % (daemon,))
     generate_report()
 
 def main():
@@ -36,8 +55,8 @@ def main():
     if len(sys.argv) != 2:
         p.print_help()
         sys.exit(1)
-
-    ip = parse_ip(p.ip)
+    a = p.parse_args()
+    ip = parse_ip(a.ip)
     start_scan(ip)
 
 if __name__ == '__main__':

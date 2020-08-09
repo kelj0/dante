@@ -1,5 +1,11 @@
 # dante
 
+### Install
+* `git clone https://github.com/kelj0/dante`
+* `cd dante`
+* `pip3 install -r requirements`
+* install nmap (`sudo apt install nmap`, `pacman -Sy nmap`, yum install ... depending on your distro)
+
 #### Workflow
 ![alt text](res/dante_workflow.png)
 
