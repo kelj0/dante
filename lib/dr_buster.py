@@ -13,6 +13,7 @@ WORDLIST_PATH = ""
 URL = ""
 SSL_SUPPORTED = True
 TIME = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+NOT_FOUND_CODE = 404
 
 def get_code(host, port, path):
     global SSL_SUPPORTED
@@ -49,7 +50,7 @@ def get_code(host, port, path):
     return code
 
 def parse_url(url):
-    global SSL_SUPPORTED
+    global SSL_SUPPORTED, NOT_FOUND_CODE
     print("Validating url %s" % (url, ))
     host = None
     port = None
@@ -75,8 +76,12 @@ def parse_url(url):
         exit(1)
 
     print("Initial GET to see if host is up") 
-    get_code(host, port, ".")
-    print("[OK]")
+    c = get_code(host, port, ".")
+    print("[UP] => got %s" % (c,))
+    print("Requesting path /aaaabbbb2 to set NOT_FOUND_CODE.")
+    print("Some sites dont have 404 for not found, but rather retirect to the homepage if path doesnt exist")
+    NOT_FOUND_CODE = get_code(host, port, "aaaabbbb2")
+    print("NOT_FOUND_CODE is %s" % (NOT_FOUND_CODE,))
     return (host, port, path)
 
 def prepare_wordlists(path):
@@ -105,7 +110,7 @@ def prepare_wordlists(path):
 def scan_host(host, port, wordlist, process_id=None, path=""):
     for word in wordlist:
         code = get_code(host, port, path+word)
-        if code != 404:
+        if code != NOT_FOUND_CODE:
             print("%s:%s%s/%s returned [%s]!                \r" 
                     % ("http://"+host if not SSL_SUPPORTED else "https://"+host, port, path, word, code))
             finding = ("%s:%s%s/%s [%s]\n"

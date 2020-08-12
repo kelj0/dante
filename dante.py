@@ -5,6 +5,7 @@ from lib.dr_buster import start_scan as dir_scan
 from lib.exploit_db_wrapper import search, print_exploits
 from threading import Thread
 from time import sleep
+from jinja2 import Template 
 
 def parse_ip(ip):
     try:
@@ -23,23 +24,40 @@ def check_for_exploits(daemon, version=""):
     else:
         return None
 
-def generate_report(exploits_list):
+def generate_report(exploits_list, running_services):
     paths = []
     for f in glob.glob("./lib/dr.buster.report*"):
-        with open("./lib/"+f, 'r') as fi:
+        with open(f, 'r') as fi:
             paths.extend([line.split() for line in fi.readlines()])
-    else:
+    if len(paths) == 0:
         print("dr.buster didnt find any paths, so im not including dr.buster part in the report")
+    
+    found_exploits = False
+    found_services = False
+    if len(exploits_list) > 0:
+        found_exploits = True 
+    if len(running_services) > 0:
+        found_services = True
+    tmp = ""
+    with open('./template.html', 'r') as f:
+        tmp = '\n'.join(f.readlines())
 
-    # paths => paths for report [0]-> url | [1] -> status code
-    # report [(daemon, exploits(verified,nverified))]
-    #for daemon, exploits in exploits:
-    #    print("\nExploits for:\n%s\n" % (daemon, )) 
-    #    print_exploits(exploits['verified'])
-    #    print_exploits(exploits['nverified'])
+    template = Template(tmp)
+    html = template.render(
+                found_services=found_services, 
+                found_exploits=found_exploits, 
+                running_services=running_services,
+                daemon_exploits=exploits_list,
+                paths=paths[:10]
+            )
+
+    with open('./dante_report.html', 'w') as f:
+        f.write(html)
+    print("Done, generated report in dante_report.html")
 
 def start_scan(ip):
     exploits_for_report = []
+    running_services = []
     dr_buster_started = False
     nm = nmap.PortScanner()
     print("Starting nmap")
@@ -55,6 +73,7 @@ def start_scan(ip):
     print("Done with scan, scanned totally %s ports" % (len(result),))
     for p in result:
         if result[p]['state'] == 'open' and result[p]['product'] != '':
+            running_services.append([p, port['product']])
             port = result[p]
             daemon = port['product']
             version = port['version'] if port['version'] != "" else "unknown"
@@ -86,7 +105,7 @@ def start_scan(ip):
     for t in threads:
         t.join()
 
-    generate_report(exploits_for_report)
+    generate_report(exploits_for_report, running_services)
 
 
 def main():

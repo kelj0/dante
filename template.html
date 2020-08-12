@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dante report</title>
+    </head>
+    <body>
+        <h1>Dante report</h1>
+
+        {% if found_services%}
+            <h2>Running services:</h2>
+            <ul>
+                {% for port, service in running_services %}
+                    <li>{{ service }} running on port {{ port }}</li>
+                {% endfor %}
+            </ul>
+            {% if found_exploits %}
+                <ul>
+                {% for daemon, exploits, port, daemon_type in daemon_exploits %}
+                    <h3>Exploits for {{ daemon }}</h3>
+                    <h4>================================</h4>
+                    {% if exploits['verified'] %}
+                        <h4>Verified exploits</h4>
+                        <ul>
+                            {% for exploit in exploits['verified'] %}
+                                <ul>
+                                    <li>{{ exploit['title'] }}</li>
+                                    <li>link: <a href="{{ exploit['link'] }}">{{ exploit['link'] }}</a></li>
+                                    <li>type: {{ exploit['type'] }}</li>
+                                    <li>platform: {{ exploit['platform'] }}</li>
+                                </ul>
+                                ===========================
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h4>Didnt find any verified exploits</h4>
+                    {% endif %}
+                    {% if exploits['nverified'] %}
+                        <h4>Non verified exploits</h4>
+                        <ul>
+                            {% for exploit in exploits['nverified'] %}
+                                <ul>
+                                    <li>{{ exploit['title'] }}</li>
+                                    <li>link: <a href="{{ exploit['link'] }}">{{ exploit['link'] }}</a></li>
+                                    <li>type: {{ exploit['type'] }}</li>
+                                    <li>platform: {{ exploit['platform'] }}</li>
+                                </ul>
+                                ===========================
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h4>Didnt find any non verified exploits</h4>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            {% else %}
+            <h2><a href="https://github.com/kelj0/exploit-db-wrapper">exploit-db-wrapper</a> didnt find any exploits for dameons running on scanned ports</h2>
+            {% endif %}
+        {% endif %}
+        {% if paths is defined %}
+            <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> found some paths, showing you first 10</h2>
+            <ul>
+             {% for path in paths %}
+                 <li><a href="{{ path[0] }}">{{ path[0] }}</a> returned {{ path[1] }}</li>
+             {% endfor %}
+            </ul>
+        {% else %}
+            <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> didn't find anything.</h2>
+        {% endif %}
+    </body>
+
+</html>
