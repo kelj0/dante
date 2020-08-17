@@ -9,7 +9,7 @@
 #### Workflow
 ![alt text](res/dante_workflow.png)
 
-##### [**SAMPLE REPORT**](dante_report.html)
+##### [**SAMPLE REPORT**](https://kelj0.github.io/dante/dante_report.html)
 
 #### dante uses
 * [exploit-db-wrapper](https://github.com/kelj0/exploit-db-wrapper)
