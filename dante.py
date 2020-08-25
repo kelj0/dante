@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys, argparse, nmap, glob, os
 from socket import error as WrongIpException
 from socket import inet_aton as check_ip
@@ -101,7 +103,7 @@ def start_scan(ip):
             threads.append(Thread(dir_scan, args=("https://"+ip+":"+d[2], WORDLIST)))
     for t in threads:
         t.start()
-        sleep(1.5) # sleep cause of dr.bust reports tied to timestamp
+        sleep(1.5) # sleep cause of dr.buster reports tied to timestamp
     for t in threads:
         t.join()
 
