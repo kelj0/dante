@@ -22,11 +22,7 @@
 
                 
 
-                    <li>nginx running on port 80</li>
-
-                
-
-                    <li>openSSH running on port 22</li>
+                    <li>Apache Solr running on port 8983</li>
 
                 
 
@@ -38,7 +34,7 @@
 
                 
 
-                    <h3>Exploits for nginx</h3>
+                    <h3>Exploits for Apache Solr</h3>
 
                     <h4>================================</h4>
 
@@ -52,93 +48,29 @@
 
                                 <ul>
 
-                                    <li>Nginx 0.6.36 - Directory Traversal</li>
+                                    <li>Apache Solr 7.0.1 - XML External Entity Expansion / Remote Code Execution</li>
 
-                                    <li>link: <a href="https://www.exploit-db.com/download/12804">https://www.exploit-db.com/download/12804</a></li>
+                                    <li>link: <a href="https://www.exploit-db.com/download/43009">https://www.exploit-db.com/download/43009</a></li>
+
+                                    <li>type: webapps</li>
+
+                                    <li>platform: XML</li>
+
+                                </ul>
+
+                                ===========================
+
+                            
+
+                                <ul>
+
+                                    <li>Apache Solr - Remote Code Execution via Velocity Template (Metasploit)</li>
+
+                                    <li>link: <a href="https://www.exploit-db.com/download/48338">https://www.exploit-db.com/download/48338</a></li>
 
                                     <li>type: remote</li>
 
                                     <li>platform: Multiple</li>
-
-                                </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
-                                    <li>Nginx 1.3.9 &lt; 1.4.0 - Denial of Service (PoC)</li>
-
-                                    <li>link: <a href="https://www.exploit-db.com/download/25499">https://www.exploit-db.com/download/25499</a></li>
-
-                                    <li>type: dos</li>
-
-                                    <li>platform: Linux</li>
-
-                                </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
-                                    <li>Nginx 1.3.9/1.4.0 (x86) - Brute Force</li>
-
-                                    <li>link: <a href="https://www.exploit-db.com/download/26737">https://www.exploit-db.com/download/26737</a></li>
-
-                                    <li>type: remote</li>
-
-                                    <li>platform: Linux_x86</li>
-
-                                </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
-                                    <li>Nginx (Debian Based Distros + Gentoo) - 'logrotate' Local Privilege Escalation</li>
-
-                                    <li>link: <a href="https://www.exploit-db.com/download/40768">https://www.exploit-db.com/download/40768</a></li>
-
-                                    <li>type: local</li>
-
-                                    <li>platform: Linux</li>
-
-                                </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
-                                    <li>Nginx 1.4.0 (Generic Linux x64) - Remote Overflow</li>
-
-                                    <li>link: <a href="https://www.exploit-db.com/download/32277">https://www.exploit-db.com/download/32277</a></li>
-
-                                    <li>type: remote</li>
-
-                                    <li>platform: Linux_x86-64</li>
-
-                                </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
-                                    <li>PHP-FPM + Nginx - Remote Code Execution</li>
-
-                                    <li>link: <a href="https://www.exploit-db.com/download/47553">https://www.exploit-db.com/download/47553</a></li>
-
-                                    <li>type: webapps</li>
-
-                                    <li>platform: PHP</li>
 
                                 </ul>
 
@@ -152,7 +84,29 @@
 
                     
 
-                        <h4>Didnt find any non verified exploits</h4>
+                        <h4>Non verified exploits</h4>
+
+                        <ul>
+
+                            
+
+                                <ul>
+
+                                    <li>Apache Solr 8.2.0 - Remote Code Execution</li>
+
+                                    <li>link: <a href="https://www.exploit-db.com/download/47572">https://www.exploit-db.com/download/47572</a></li>
+
+                                    <li>type: webapps</li>
+
+                                    <li>platform: Java</li>
+
+                                </ul>
+
+                                ===========================
+
+                            
+
+                        </ul>
 
                     
 
@@ -164,6 +118,8 @@
 
         
 
+
+
         
 
             <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> found some paths, showing you first 10</h2>
@@ -172,43 +128,7 @@
 
              
 
-                 <li><a href="https://example.com/aa">https://example.com/aa</a> returned [200]</li>
-
-             
-
-                 <li><a href="https://example.com/bb">https://example.com/bb</a> returned [201]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
-
-             
-
-                 <li><a href="https://example.com/cc">https://example.com/cc</a> returned [300]</li>
+                 <li><a href="http://127.0.0.1:8983/">http://127.0.0.1:8983/</a> returned [302]</li>
 
              
 

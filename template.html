@@ -55,8 +55,11 @@
             {% else %}
             <h2><a href="https://github.com/kelj0/exploit-db-wrapper">exploit-db-wrapper</a> didnt find any exploits for dameons running on scanned ports</h2>
             {% endif %}
+        {% else %}
+            <h2>Didnt find any running services.</h2>
         {% endif %}
-        {% if paths is defined %}
+
+        {% if web_scan %}
             <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> found some paths, showing you first 10</h2>
             <ul>
              {% for path in paths %}
