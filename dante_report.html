@@ -1,143 +1,58 @@
 <!DOCTYPE html>
-
 <html>
-
     <head>
-
         <title>Dante report</title>
-
+        <style>
+            *{margin: auto;text-align: center; padding: 10px;}
+            body{background-color: #0d0d0d;color: #00cc00;}
+            .exploits {width: 50%;margin-bottom: 5px; padding-left: 10%;}
+            a{color: #00cc00;border-bottom: 1px #00cc00;}
+            ul{list-style: '🞊 '; padding: 0;}
+            .exploits>li{padding: 0; text-align: left;}
+            h2{margin: 10px;}
+            h3, h4{margin: 5px;}
+            .h_txt{display: inline-block; border: 1px dashed  #00cc00;}
+        </style>
     </head>
 
     <body>
-
         <h1>Dante report</h1>
-
-
-
-        
-
-            <h2>Running services:</h2>
-
+            <h2 class="h_txt">Running services</h2>
             <ul>
-
-                
-
                     <li>Apache Solr running on port 8983</li>
-
-                
-
             </ul>
-
-            
-
                 <ul>
-
-                
-
-                    <h3>Exploits for Apache Solr</h3>
-
-                    <h4>================================</h4>
-
-                    
-
-                        <h4>Verified exploits</h4>
-
+                    <h3 class="h_txt">Exploits for Apache Solr</h3>
+                </br>
+                        <h4 class="h_txt">Verified exploits</h4>
                         <ul>
-
-                            
-
-                                <ul>
-
+                                <ul class="exploits">
                                     <li>Apache Solr 7.0.1 - XML External Entity Expansion / Remote Code Execution</li>
-
                                     <li>link: <a href="https://www.exploit-db.com/download/43009">https://www.exploit-db.com/download/43009</a></li>
-
                                     <li>type: webapps</li>
-
                                     <li>platform: XML</li>
-
                                 </ul>
-
-                                ===========================
-
-                            
-
-                                <ul>
-
+                                <ul class="exploits">
                                     <li>Apache Solr - Remote Code Execution via Velocity Template (Metasploit)</li>
-
                                     <li>link: <a href="https://www.exploit-db.com/download/48338">https://www.exploit-db.com/download/48338</a></li>
-
                                     <li>type: remote</li>
-
                                     <li>platform: Multiple</li>
-
                                 </ul>
-
-                                ===========================
-
-                            
-
                         </ul>
-
-                    
-
-                    
-
-                        <h4>Non verified exploits</h4>
-
+                        <h4 class="h_txt">Non verified exploits</h4>
                         <ul>
-
-                            
-
-                                <ul>
-
+                                <ul class="exploits">
                                     <li>Apache Solr 8.2.0 - Remote Code Execution</li>
-
                                     <li>link: <a href="https://www.exploit-db.com/download/47572">https://www.exploit-db.com/download/47572</a></li>
-
                                     <li>type: webapps</li>
-
                                     <li>platform: Java</li>
-
                                 </ul>
-
-                                ===========================
-
-                            
-
                         </ul>
-
-                    
-
-                
-
                 </ul>
-
-            
-
-        
-
-
-
-        
-
-            <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> found some paths, showing you first 10</h2>
-
+            </br></br></br></br>
+            <h4 class="h_txt"><a href="https://github.com/kelj0/dr.buster">dr.buster</a> found some paths, showing you first 10</h4>
             <ul>
-
-             
-
                  <li><a href="http://127.0.0.1:8983/">http://127.0.0.1:8983/</a> returned [302]</li>
-
-             
-
             </ul>
-
-        
-
     </body>
-
-
-
 </html>

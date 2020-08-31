@@ -2,12 +2,22 @@
 <html>
     <head>
         <title>Dante report</title>
+        <style>
+            *{margin: auto;text-align: center; padding: 10px;}
+            body{background-color: #0d0d0d;color: #00cc00;}
+            .exploits {width: 50%;margin-bottom: 5px; padding-left: 10%;}
+            a{color: #00cc00;border-bottom: 1px #00cc00;}
+            ul{list-style: '🞊 '; padding: 0;}
+            .exploits>li{padding: 0; text-align: left;}
+            h2{margin: 10px;}
+            h3, h4{margin: 5px;}
+            .h_txt{display: inline-block; border: 1px dashed  #00cc00;}
+        </style>
     </head>
     <body>
         <h1>Dante report</h1>
-
         {% if found_services%}
-            <h2>Running services:</h2>
+            <h2 class="h_txt">Running services:</h2>
             <ul>
                 {% for port, service in running_services %}
                     <li>{{ service }} running on port {{ port }}</li>
@@ -16,58 +26,57 @@
             {% if found_exploits %}
                 <ul>
                 {% for daemon, exploits, port, daemon_type in daemon_exploits %}
-                    <h3>Exploits for {{ daemon }}</h3>
-                    <h4>================================</h4>
+                    <h3 class="h_txt">Exploits for {{ daemon }}</h3></br>
                     {% if exploits['verified'] %}
-                        <h4>Verified exploits</h4>
-                        <ul>
+                        <h4 class="h_txt">Verified exploits</h4>
+                        <ul> 
                             {% for exploit in exploits['verified'] %}
-                                <ul>
+                                <ul class="exploits">
                                     <li>{{ exploit['title'] }}</li>
                                     <li>link: <a href="{{ exploit['link'] }}">{{ exploit['link'] }}</a></li>
                                     <li>type: {{ exploit['type'] }}</li>
                                     <li>platform: {{ exploit['platform'] }}</li>
                                 </ul>
-                                ===========================
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <h4>Didnt find any verified exploits</h4>
+                        <h4 class="h_txt">Didnt find any verified exploits</h4></br>
                     {% endif %}
                     {% if exploits['nverified'] %}
-                        <h4>Non verified exploits</h4>
+                        <h4 class="h_txt">Non verified exploits</h4>
                         <ul>
                             {% for exploit in exploits['nverified'] %}
-                                <ul>
+                                <ul class="exploits">
                                     <li>{{ exploit['title'] }}</li>
                                     <li>link: <a href="{{ exploit['link'] }}">{{ exploit['link'] }}</a></li>
                                     <li>type: {{ exploit['type'] }}</li>
                                     <li>platform: {{ exploit['platform'] }}</li>
                                 </ul>
-                                ===========================
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <h4>Didnt find any non verified exploits</h4>
+                        <h4 class="h_txt">Didnt find any non verified exploits</h4></br>
                     {% endif %}
                 {% endfor %}
                 </ul>
             {% else %}
-            <h2><a href="https://github.com/kelj0/exploit-db-wrapper">exploit-db-wrapper</a> didnt find any exploits for dameons running on scanned ports</h2>
+            <h3><a href="https://github.com/kelj0/exploit-db-wrapper">exploit-db-wrapper</a> didnt find any exploits for dameons running on scanned ports</h3>
             {% endif %}
         {% else %}
-            <h2>Didnt find any running services.</h2>
+            <h2 class="h_txt">Didnt find any running services.</h2>
         {% endif %}
 
         {% if web_scan %}
-            <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> found some paths, showing you first 10</h2>
+            </br></br></br></br>
+            <h4 class="h_txt"><a href="https://github.com/kelj0/dr.buster">dr.buster</a> found some paths, showing you first 10</h4>
             <ul>
              {% for path in paths %}
                  <li><a href="{{ path[0] }}">{{ path[0] }}</a> returned {{ path[1] }}</li>
              {% endfor %}
             </ul>
         {% else %}
-            <h2><a href="https://kelj0.com/dr.buster">dr.buster</a> didn't find anything.</h2>
+            </br>
+            <h2 class="h_txt"><a href="https://github.com/kelj0/dr.buster">dr.buster</a> didn't find anything.</h2>
         {% endif %}
     </body>
 
